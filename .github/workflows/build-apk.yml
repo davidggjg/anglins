@@ -30,27 +30,10 @@ jobs:
       - name: Expo Prebuild - generate android folder
         run: npx expo prebuild --platform android --no-install
 
-      - name: Create debug keystore
-        working-directory: android/app
-        run: |
-          keytool -genkey -v \
-            -keystore debug.keystore \
-            -alias androiddebugkey \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass android \
-            -keypass android \
-            -dname "CN=Android Debug,O=Android,C=US"
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.6'
-
-      - name: Make gradlew executable
-        working-directory: android
-        run: chmod +x ./gradlew
 
       - name: Build Debug APK
         working-directory: android
