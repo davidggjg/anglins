@@ -30,6 +30,12 @@ jobs:
       - name: Expo Prebuild - generate android folder
         run: npx expo prebuild --platform android --no-install
 
+      - name: Force Gradle 8.3 (compatible with Expo SDK 51)
+        working-directory: android
+        run: |
+          sed -i 's|distributionUrl=.*|distributionUrl=https\\://services.gradle.org/distributions/gradle-8.3-all.zip|' gradle/wrapper/gradle-wrapper.properties
+          cat gradle/wrapper/gradle-wrapper.properties
+
       - name: Make gradlew executable
         working-directory: android
         run: chmod +x ./gradlew
